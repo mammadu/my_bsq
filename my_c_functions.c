@@ -299,7 +299,7 @@ int my_strcmp(char* param_1, char* param_2)
     return 0;
 }
 
-void null_filler(void* pointer, int length)
+void null_filler_pointer(void* pointer, int length)
 {
     char* index = pointer;
     int i = 0;

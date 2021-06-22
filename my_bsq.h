@@ -3,3 +3,4 @@
 
 #include <sys/stat.h>
 #include <fcntl.h>
+#include "my_c_functions.h"

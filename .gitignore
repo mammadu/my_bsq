@@ -1,1 +1,14 @@
+# Ignore all
+*
+
+# Unignore all with extensions
+!*.*
+
+# Unignore all dirs
+!*/
+
+!Makefile
+*.o 
+core.*
+.theia/
 map.txt

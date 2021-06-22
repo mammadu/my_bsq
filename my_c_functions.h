@@ -24,7 +24,7 @@ char* my_itoa_base(int value, int base);
 
 int my_strcmp(char* param_1, char* param_2);
 
-void null_filler(void* pointer, int length);
+void null_filler_pointer(void* pointer, int length);
 
 void split_string_word(char* destination_string, char** source_string, char delimiter);
 
