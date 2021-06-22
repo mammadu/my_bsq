@@ -7,7 +7,7 @@ TEST = read_map
 TESTFILES = read_map.o my_c_functions.o my_readline.o
 MAP_GENERATOR = map_generator.pl
 MAP_DESTINATION = map.txt
-AGRV0 = 10
+AGRV0 = 103
 ARGV1 = 10
 ARGV2 = 3
 
