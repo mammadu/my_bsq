@@ -4,6 +4,10 @@
 #include <unistd.h>
 #include <stdio.h>
 
+#define OCT 8
+#define DEC 10
+#define HEX 12
+
 char* my_strdup(char* param_1);
 
 char* combine_strings(char* first_string, char* second_string);
