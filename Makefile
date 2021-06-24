@@ -3,12 +3,12 @@ PL = perl
 CFLAGS += -Wall -Wextra -g3 #-Werror
 CFLAGS_MEM = ${CFLAGS} -fsanitize=address
 NAME = my_bsq
-OBJECT_FILES = my_bsq.o map_rep.o my_c_functions.o my_readline.o
+OBJECT_FILES = my_bsq.o map_rep.o my_c_functions.o my_readline.o transform_map.o
 TEST = read_map
-TEST_OBJECT_FILES = map_rep.o my_c_functions.o my_readline.o
+TEST_OBJECT_FILES = map_rep.o my_c_functions.o my_readline.o 
 MAP_GENERATOR = map_generator.pl
 MAP_DESTINATION = map.txt
-AGRV0 = 103
+AGRV0 = 7
 ARGV1 = 10
 ARGV2 = 3
 

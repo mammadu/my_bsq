@@ -1,13 +1,79 @@
 #include "transform_map.h"
 #include "map_rep.h"
 
-//zero filler function
-    //goal is to fill all the rows with zeroes
+int** zero_filler_map(bitmap* map)
+{
+    int i = 0;
+    int j = 0; 
+    map->map = malloc(sizeof(int*) * map->row_count);
+    
+    
+    while(i < map->row_count)
+    {   
+        map->map[i] = malloc(sizeof(int) * map->col_count);
+        while (j < map->col_count)
+        {
+            map->map[i][j] = 0;
+            j += 1;
+        }   
+        j = 0;        
+        i += 1;
+    }
+   
+    return map->map;
+}
 
 //row manipulation based on obstacles
     // we will add +1 for every obstacle in a given row
         //+1 will accumulate but it will start again at +0 per each row
 
+int** horizontal_filler_map(bitmap* map)
+{
+    map->map = zero_filler_map(map);
+    int i = 0;
+    int j = 0;
+    int accum = 0;
+
+    while(i < map->row_count)
+    {   
+        while (j < map->col_count)
+        {
+            if(map->char_map[i][j] == 'o')
+                accum += 1;
+            map->map[i][j] = accum;
+            j += 1;
+        }
+        accum = 0;           
+        j = 0;        
+        i += 1;
+    }
+
+    return map->map;
+}
+
+int** vertical_filler_map(bitmap* map)
+{
+    map->map = horizontal_filler_map(map);
+    int i = 0;
+    int j = 0;
+    int accum = 0;
+
+    while(i < map->col_count)
+    {   
+        while (j < map->row_count)
+        {
+            if(map->map[j][i] > 0)
+                accum += map->map[j][i];
+            map->map[j][i] = accum;
+            j += 1;
+        }
+        accum = 0;           
+        j = 0;        
+        i += 1;
+    }
+
+    return map->map;
+}
 //Column manipulation
     //same operation as in row manipulation but with colums 
         //chanllenge is that 
