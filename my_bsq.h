@@ -8,5 +8,7 @@
 #include "my_c_functions.h"
 
 void map_reader(bitmap* map);
+void biggest_square(bitmap* map);
+
 
 #endif

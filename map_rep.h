@@ -8,6 +8,7 @@ typedef struct bitmap
 {
     int row_count;
     int col_count;
+    int bsq_coord[3]; //holds biggest square info of the top left corner. Consists of [row, column, size]
     int** map;
     char** char_map;
 }bitmap;
