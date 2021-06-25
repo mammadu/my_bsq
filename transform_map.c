@@ -29,7 +29,7 @@ int** zero_filler_map(bitmap* map)
 
 int** horizontal_filler_map(bitmap* map)
 {
-    map->map = zero_filler_map(map);
+    // map->map = zero_filler_map(map);
     int i = 0;
     int j = 0;
     int accum = 0;
@@ -53,7 +53,7 @@ int** horizontal_filler_map(bitmap* map)
 
 int** vertical_filler_map(bitmap* map)
 {
-    map->map = horizontal_filler_map(map);
+    // map->map = horizontal_filler_map(map);
     int i = 0;
     int j = 0;
     int accum = 0;
@@ -74,6 +74,16 @@ int** vertical_filler_map(bitmap* map)
 
     return map->map;
 }
+
+int** transform_map(bitmap* map)
+{
+    map->map = zero_filler_map(map);
+    map->map = horizontal_filler_map(map);
+    map->map = vertical_filler_map(map);
+
+    return map->map;
+}
+
 //Column manipulation
     //same operation as in row manipulation but with colums 
         //chanllenge is that 
