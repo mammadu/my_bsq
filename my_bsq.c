@@ -1,9 +1,5 @@
 #include "my_bsq.h"
 
-#define BSQ_TLC_COL 0
-#define BSQ_TLC_ROW 1
-#define BSQ_TLC_SIZE 2
-
 void map_reader(bitmap* map)
 {
     int i = 0; 
@@ -13,7 +9,9 @@ void map_reader(bitmap* map)
     {
         while (j < map->col_count)
         {
-            printf("%d ",map->map[i][j]);
+            //printf("%d ",map->map[i][j]);
+            printf("%c",map->char_map[i][j]);
+            
             j += 1;
         }
         printf("\n");
@@ -49,8 +47,8 @@ void biggest_square(bitmap* map)
 
     while (!(x + size >= map->col_count && y + size >= map->row_count))
     {
-        printf("x + size = %d\ny + size = %d\n",x + size, y + size);
-        printf("is_valid_square(map, %d, %d, %d) = %d\n", x, y, size, is_valid_square(map->map, x, y, size));
+        //printf("x + size = %d\ny + size = %d\n",x + size, y + size);
+        //printf("is_valid_square(map, %d, %d, %d) = %d\n", x, y, size, is_valid_square(map->map, x, y, size));
         if (is_valid_square(map->map, x, y, size) == 0)
         {
             map->bsq_coord[BSQ_TLC_COL] = x;
@@ -87,7 +85,7 @@ int main(int argc, char* argv[])
         //print out final bitmap
 
         printf("biggest square coord: x = %d, y = %d, size = %d\n", map->bsq_coord[BSQ_TLC_COL], map->bsq_coord[BSQ_TLC_ROW], map->bsq_coord[BSQ_TLC_SIZE]);
-        
+        map->char_map = coordinates_to_bsq(map);
          map_reader(map);
     }
    
