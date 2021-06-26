@@ -24,11 +24,20 @@ void map_reader(bitmap* map)
 
 int is_valid_square(int** map, int tlc_col, int tlc_row, int size)
 {
+    size -= 1;
     int tlc = map[tlc_row][tlc_col];
     int trc = map[tlc_row][tlc_col + size];
     int blc = map[tlc_row + size][tlc_col];
     int brc = map[tlc_row + size][tlc_col + size];
-    return brc - blc - trc + tlc;    
+
+    if (tlc == -1 || trc == -1 || blc == -1 || brc == -1)
+    {
+        return -1;
+    }
+    else
+    {
+        return brc - blc - trc + tlc;
+    }
 }
 
 void biggest_square(bitmap* map)
@@ -36,10 +45,12 @@ void biggest_square(bitmap* map)
     //start at top left: x = 0, y = 0 size = 2
     int x = 0;
     int y = 0;
-    int size = 2;
+    int size = 1;
 
-    while (x + size < map->col_count && y + size < map->row_count)
+    while (!(x + size >= map->col_count && y + size >= map->row_count))
     {
+        printf("x + size = %d\ny + size = %d\n",x + size, y + size);
+        printf("is_valid_square(map, %d, %d, %d) = %d\n", x, y, size, is_valid_square(map->map, x, y, size));
         if (is_valid_square(map->map, x, y, size) == 0)
         {
             map->bsq_coord[BSQ_TLC_COL] = x;
