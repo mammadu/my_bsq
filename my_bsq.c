@@ -13,7 +13,7 @@ void map_reader(bitmap* map)
     {
         while (j < map->col_count)
         {
-            printf("%d",map->map[i][j]);
+            printf("%d ",map->map[i][j]);
             j += 1;
         }
         printf("\n");
@@ -77,7 +77,7 @@ int main(int argc, char* argv[])
 
         printf("biggest square coord: x = %d, y = %d, size = %d\n", map->bsq_coord[BSQ_TLC_COL], map->bsq_coord[BSQ_TLC_ROW], map->bsq_coord[BSQ_TLC_SIZE]);
         
-        // map_reader(map);
+         map_reader(map);
     }
    
     return 0;

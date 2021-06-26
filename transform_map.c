@@ -75,12 +75,33 @@ int** vertical_filler_map(bitmap* map)
     return map->map;
 }
 
+int** obstacle_filler_map(bitmap* map)
+{
+    // map->map = zero_filler_map(map);
+    int i = 0;
+    int j = 0;
+
+    while(i < map->row_count)
+    {   
+        while (j < map->col_count)
+        {
+            if(map->char_map[i][j] == 'o')
+                map->map[i][j] = -1;    
+            j += 1;
+        }
+        j = 0;        
+        i += 1;
+    }
+
+    return map->map;
+}
+
 int** transform_map(bitmap* map)
 {
     map->map = zero_filler_map(map);
     map->map = horizontal_filler_map(map);
     map->map = vertical_filler_map(map);
-
+    map->map = obstacle_filler_map(map);
     return map->map;
 }
 
