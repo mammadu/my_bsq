@@ -8,14 +8,14 @@ TEST = read_map
 TEST_OBJECT_FILES = map_rep.o my_c_functions.o my_readline.o 
 MAP_GENERATOR = map_generator.pl
 MAP_DESTINATION = map.txt
-AGRV0 = 5
-ARGV1 = 5
+AGRV0 = 3
+ARGV1 = 3
 ARGV2 = 2
 
 all: my_bsq
 
 ${NAME}: ${OBJECT_FILES}
-	${CC} -o $@ $^ ${CFLAGS}
+	${CC} -o $@ $^ ${CFLAGS_MEM}
 
 test: ${TEST_OBJECT_FILES}
 	${CC} -o ${TEST} $^ ${CFLAGS}

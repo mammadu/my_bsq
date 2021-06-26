@@ -13,7 +13,7 @@ void map_reader(bitmap* map)
     {
         while (j < map->col_count)
         {
-            printf("%d ",map->map[i][j]);
+            printf("%3d ",map->map[i][j]);
             j += 1;
         }
         printf("\n");
@@ -29,6 +29,8 @@ int is_valid_square(int** map, int tlc_col, int tlc_row, int size)
     int trc = map[tlc_row][tlc_col + size];
     int blc = map[tlc_row + size][tlc_col];
     int brc = map[tlc_row + size][tlc_col + size];
+
+    // printf("tlc_coord = [%d][%d]\ntrc_coord = [%d][%d]\nblc_coord = [%d][%d]\nbrc_coord = [%d][%d]\n", tlc_row, tlc_col, tlc_row, tlc_col + size, tlc_row + size, tlc_col, tlc_row + size, tlc_col + size);
 
     if (tlc == -1 || trc == -1 || blc == -1 || brc == -1)
     {
@@ -47,7 +49,7 @@ void biggest_square(bitmap* map)
     int y = 0;
     int size = 1;
 
-    while (!(x + size >= map->col_count && y + size >= map->row_count))
+    while (!(x + size > map->col_count && y + size > map->row_count)) //x+size and y+sizze are going out of bounds, why?
     {
         printf("x + size = %d\ny + size = %d\n",x + size, y + size);
         printf("is_valid_square(map, %d, %d, %d) = %d\n", x, y, size, is_valid_square(map->map, x, y, size));

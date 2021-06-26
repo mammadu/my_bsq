@@ -67,8 +67,8 @@ int** vertical_filler_map(bitmap* map)
             map->map[j][i] = accum;
             j += 1;
         }
-        accum = 0;           
-        j = 0;        
+        accum = 0;
+        j = 0;
         i += 1;
     }
 
