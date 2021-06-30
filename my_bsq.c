@@ -22,13 +22,13 @@ void map_reader(bitmap* map)
 
 int is_valid_square(int** map, int tlc_col, int tlc_row, int size)
 {
-    size -= 1;
+    size -= 1; //The starting point of size in foo biggest_sqare and this lines of code do not make sense 
     int tlc = map[tlc_row][tlc_col];
     int trc = map[tlc_row][tlc_col + size];
     int blc = map[tlc_row + size][tlc_col];
     int brc = map[tlc_row + size][tlc_col + size];
 
-    if (tlc == -1 || trc == -1 || blc == -1 || brc == -1)
+    if (tlc == -1 || trc == -1 || blc == -1 || brc == -1) //Would it be a easy as flagging here as well the total size of x and y as a boundary?
     {
         return -1;
     }
@@ -49,17 +49,19 @@ void biggest_square(bitmap* map)
     {
         //printf("x + size = %d\ny + size = %d\n",x + size, y + size);
         //printf("is_valid_square(map, %d, %d, %d) = %d\n", x, y, size, is_valid_square(map->map, x, y, size));
-        if (is_valid_square(map->map, x, y, size) == 0)
+        if (x + size > map->col_count)
+        {
+            y += 1;
+            x = 0;
+        }
+        else if (is_valid_square(map->map, x, y, size) == 0)
         {
             map->bsq_coord[BSQ_TLC_COL] = x;
             map->bsq_coord[BSQ_TLC_ROW] = y;
             map->bsq_coord[BSQ_TLC_SIZE] = size;
             size += 1;
-        }
-        else if (x + size > map->col_count)
-        {
-            y += 1;
             x = 0;
+            y = 0;
         }
         else
         {

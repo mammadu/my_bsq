@@ -4,16 +4,18 @@ char** coordinates_to_bsq(bitmap* map)
 {
     int i = map->bsq_coord[BSQ_TLC_ROW];
     int j = map->bsq_coord[BSQ_TLC_COL];
-
+    int size = 0;
     while (i < (map->bsq_coord[BSQ_TLC_ROW] + map->bsq_coord[BSQ_TLC_SIZE] ))
     {
-        printf("i = %d", i);
-        while (j < (map->bsq_coord[BSQ_TLC_ROW] + map->bsq_coord[BSQ_TLC_SIZE] ))
+
+        while (size < map->bsq_coord[BSQ_TLC_SIZE])
         {
             map->char_map[i][j] = 'X';
             j += 1;
+            size += 1;
         }
         j = map->bsq_coord[BSQ_TLC_COL];
+        size = 0;
         i += 1;
     }
 
