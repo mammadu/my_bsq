@@ -22,11 +22,15 @@ void map_reader(bitmap* map)
 
 int is_valid_square(int** map, int tlc_col, int tlc_row, int size)
 {
+    // [what-is-this t/b][left-right][char(?)]
     size -= 1; //The starting point of size in foo biggest_sqare and this lines of code do not make sense 
     int tlc = map[tlc_row][tlc_col];
     int trc = map[tlc_row][tlc_col + size];
     int blc = map[tlc_row + size][tlc_col];
     int brc = map[tlc_row + size][tlc_col + size];
+
+    // int is_valid = ((tlc >= 0 && trc >= 0 && blc >= 0 && brc >= 0) ? brc - blc - trc + tlc : -1);
+    // return is_valid;
 
     if (tlc == -1 || trc == -1 || blc == -1 || brc == -1) //Would it be a easy as flagging here as well the total size of x and y as a boundary?
     {
