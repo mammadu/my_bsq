@@ -8,7 +8,8 @@
 #include "my_c_functions.h"
 #include "show_bsq.h"
 
-void map_reader(bitmap* map);
+void char_map_reader(bitmap* map);
+void int_map_reader(bitmap* map);
 void biggest_square(bitmap* map);
 
 
