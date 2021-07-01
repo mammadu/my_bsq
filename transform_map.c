@@ -101,7 +101,7 @@ int** transform_map(bitmap* map)
     map->map = zero_filler_map(map);
     map->map = horizontal_filler_map(map);
     map->map = vertical_filler_map(map);
-    // map->map = obstacle_filler_map(map);
+    map->map = obstacle_filler_map(map);
     return map->map;
 }
 

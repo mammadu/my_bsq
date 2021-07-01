@@ -1,6 +1,22 @@
 #include "my_bsq.h"
 
-void char_map_reader(bitmap* map)
+int is_valid_row(int** map, int x, int y, int size)
+{
+    int total_x = x + size; 
+        
+    while(x < total_x)
+    {
+        //printf("%d",map[y][x]);
+        if(map[y][x] == -1)
+            return - 1;
+        
+        x += 1;
+    }
+    
+    return 0;
+}
+
+void map_reader(bitmap* map)
 {
     int i = 0; 
     int j = 0;
@@ -10,28 +26,7 @@ void char_map_reader(bitmap* map)
         while (j < map->col_count)
         {
             //printf("%d ",map->map[i][j]);
-            printf("%2c",map->char_map[i][j]);
-            
-            j += 1;
-        }
-        printf("\n");
-        j = 0; 
-        i += 1;
-    }
-}
-
-void int_map_reader(bitmap* map)
-{
-    int i = 0; 
-    int j = 0;
-    
-    while (i <= map->row_count)
-    {
-        while (j <= map->col_count)
-        {
-            //printf("%d ",map->map[i][j]);
-            printf("%2d",map->map[i][j]);
-            
+            printf("%c",map->char_map[i][j]);
             j += 1;
         }
         printf("\n");
@@ -42,7 +37,7 @@ void int_map_reader(bitmap* map)
 
 int is_valid_square(int** map, int tlc_col, int tlc_row, int size)
 {
-    // size -= 1; //The starting point of size in foo biggest_sqare and this lines of code do not make sense 
+    size -= 1; //The starting point of size in foo biggest_sqare and this lines of code do not make sense 
     int tlc = map[tlc_row][tlc_col];
     int trc = map[tlc_row][tlc_col + size];
     int blc = map[tlc_row + size][tlc_col];
@@ -54,23 +49,10 @@ int is_valid_square(int** map, int tlc_col, int tlc_row, int size)
     }
     else
     {
+        //printf("brc %d - blc %d - trc  %d + tlc  %d = %d\n", brc, blc, trc, tlc,brc - blc - trc + tlc);
         return brc - blc - trc + tlc;
     }
 }
-
-/*
-This map is causing seg faults
-
-5
-.....
-o.oo.
-o.o.o
-.....
-.....
-*/
-
-
-
 
 void biggest_square(bitmap* map)
 {
@@ -83,21 +65,19 @@ void biggest_square(bitmap* map)
     {
         //printf("x + size = %d\ny + size = %d\n",x + size, y + size);
         //printf("is_valid_square(map, %d, %d, %d) = %d\n", x, y, size, is_valid_square(map->map, x, y, size));
-        printf("x = %d | y = %d | size = %d\n", x, y, size);
-        if (x + size >= map->col_count + 1)
+        if (x + size > map->col_count)
         {
             y += 1;
             x = 0;
         }
-        else if (is_valid_square(map->map, x, y, size) == 0)
+        else if (is_valid_square(map->map, x, y, size) == 0 && is_valid_row(map->map, x, y, size) == 0)
         {
             map->bsq_coord[BSQ_TLC_COL] = x;
             map->bsq_coord[BSQ_TLC_ROW] = y;
             map->bsq_coord[BSQ_TLC_SIZE] = size;
             size += 1;
-            // x = 0;
-            // y = 0;
-            printf("[debug] VALID square found!\n");
+            x = 0;
+            y = 0;
         }
         else
         {
@@ -123,12 +103,8 @@ int main(int argc, char* argv[])
         //print out final bitmap
 
         printf("biggest square coord: x = %d, y = %d, size = %d\n", map->bsq_coord[BSQ_TLC_COL], map->bsq_coord[BSQ_TLC_ROW], map->bsq_coord[BSQ_TLC_SIZE]);
-        char_map_reader(map);
-        printf("\n");
         map->char_map = coordinates_to_bsq(map);
-        int_map_reader(map);
-        printf("\n");
-        char_map_reader(map);
+         map_reader(map);
     }
    
     return 0;
