@@ -5,9 +5,9 @@ char** coordinates_to_bsq(bitmap* map)
     int i = map->bsq_coord[BSQ_TLC_ROW];
     int j = map->bsq_coord[BSQ_TLC_COL];
     int size = 0;
-    while (i < (map->bsq_coord[BSQ_TLC_ROW] + map->bsq_coord[BSQ_TLC_SIZE] ))
+    int size_x = 0;
+    while (size_x < map->bsq_coord[BSQ_TLC_SIZE])
     {
-
         while (size < map->bsq_coord[BSQ_TLC_SIZE])
         {
             map->char_map[i][j] = 'X';
@@ -16,6 +16,7 @@ char** coordinates_to_bsq(bitmap* map)
         }
         j = map->bsq_coord[BSQ_TLC_COL];
         size = 0;
+        size_x += 1;
         i += 1;
     }
 
