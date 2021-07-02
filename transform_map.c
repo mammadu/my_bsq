@@ -4,7 +4,7 @@
 int** zero_filler_map(bitmap* map)
 {
     int i = 0;
-    int j = 0; 
+    int j = 0;
     map->map = malloc(sizeof(int*) * map->row_count);
     
     
@@ -15,11 +15,10 @@ int** zero_filler_map(bitmap* map)
         {
             map->map[i][j] = 0;
             j += 1;
-        }   
-        j = 0;        
+        }
+        j = 0;
         i += 1;
     }
-   
     return map->map;
 }
 
@@ -43,8 +42,8 @@ int** horizontal_filler_map(bitmap* map)
             map->map[i + 1][j + 1] = accum;
             j += 1;
         }
-        accum = 0;           
-        j = 0;        
+        accum = 0;
+        j = 0;
         i += 1;
     }
 
@@ -67,8 +66,8 @@ int** vertical_filler_map(bitmap* map)
             map->map[j + 1][i + 1] = accum;
             j += 1;
         }
-        accum = 0;           
-        j = 0;        
+        accum = 0;
+        j = 0;
         i += 1;
     }
 
@@ -86,10 +85,10 @@ int** obstacle_filler_map(bitmap* map)
         while (j < map->col_count)
         {
             if(map->char_map[i][j] == 'o')
-                map->map[i][j] = -1;    
+                map->map[i][j] = -1;
             j += 1;
         }
-        j = 0;        
+        j = 0;
         i += 1;
     }
 

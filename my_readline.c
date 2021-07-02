@@ -1,38 +1,7 @@
-// #include <unistd.h>
-// #include <stdlib.h>
-// #include <sys/stat.h>
-// #include <fcntl.h>
-// #include <stdio.h>
-// #include "my_c_functions.h"
-
 #include "my_readline.h"
 
 #define READLINE_READ_SIZE 16
 #define FILE_DESCRIPTORS_NUM 1024
-
-// int my_strlen(char* string)
-// {
-//     int i = 0;
-//     while(string[i] != '\0')
-//         i++;
-//     return i;
-// }
-
-// char* my_strdup(char* param_1)
-// {
-//     char* str_copy;
- 
-//     int length = my_strlen(param_1);
-//     str_copy = malloc((length + 1) * sizeof(char));
-//     int i = 0;
-//     while (i < length)
-//     {
-//         str_copy[i] = param_1[i];
-//         i++;
-//     }
-//     str_copy[i] = '\0';
-//     return str_copy;
-// }
 
 char* null_filler(int size)
 {
@@ -43,28 +12,6 @@ char* null_filler(int size)
     return str;
 }
 
-// char* combine_strings(char* s1, char* s2)
-// {
-//     char* combined;
-//     char* tmp;
-//     int i = 0;
-//     int j = 0;
-
-//     if (!s1 || !s2)
-//         return (NULL);
-//     while (s1[i])
-//         i += 1;
-//     while (s2[j])
-//         j += 1;
-//     combined = null_filler(i + j);
-//     tmp = combined;
-//     while (*s1 != '\0')
-//         *tmp++ = *s1++;
-//     while (*s2 != '\0')
-//         *tmp++ = *s2++;
-//     *tmp = '\0';
-//     return (combined);
-// }
 
 int read_remainder(char** remainder, char** line)
 {

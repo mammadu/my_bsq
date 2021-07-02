@@ -10,6 +10,4 @@ int** vertical_filler_map(bitmap* map);
 int** transform_map(bitmap* map);
 int** obstacle_filler_map(bitmap* map);
 
-
-
 #endif

@@ -8,8 +8,8 @@ TEST = read_map
 TEST_OBJECT_FILES = map_rep.o my_c_functions.o my_readline.o 
 MAP_GENERATOR = map_generator.pl
 MAP_DESTINATION = map.txt
-AGRV0 = 10
-ARGV1 = 3
+AGRV0 = 5
+ARGV1 = 5
 ARGV2 = 2
 
 all: my_bsq

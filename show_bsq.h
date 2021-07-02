@@ -6,5 +6,4 @@
 
 char** coordinates_to_bsq(bitmap* map);
 
-
 #endif
