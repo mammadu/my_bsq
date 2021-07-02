@@ -79,12 +79,12 @@ void biggest_square(bitmap* map)
     int y = 0;
     int size = 1;
 
-    while (!(x + size >= map->col_count && y + size >= map->row_count))
+    while (y + size <= map->row_count)
     {
         //printf("x + size = %d\ny + size = %d\n",x + size, y + size);
         //printf("is_valid_square(map, %d, %d, %d) = %d\n", x, y, size, is_valid_square(map->map, x, y, size));
-        printf("x = %d | y = %d | size = %d\n", x, y, size);
-        if (x + size >= map->col_count + 1)
+        // printf("x = %d | y = %d | size = %d\n", x, y, size);
+        if (x + size >= map->col_count)
         {
             y += 1;
             x = 0;
@@ -97,7 +97,7 @@ void biggest_square(bitmap* map)
             size += 1;
             // x = 0;
             // y = 0;
-            printf("[debug] VALID square found!\n");
+            // printf("[debug] VALID square found!\n");
         }
         else
         {
@@ -122,12 +122,12 @@ int main(int argc, char* argv[])
         //change 2d character array to show the largest square
         //print out final bitmap
 
-        printf("biggest square coord: x = %d, y = %d, size = %d\n", map->bsq_coord[BSQ_TLC_COL], map->bsq_coord[BSQ_TLC_ROW], map->bsq_coord[BSQ_TLC_SIZE]);
-        char_map_reader(map);
-        printf("\n");
+        // printf("biggest square coord: x = %d, y = %d, size = %d\n", map->bsq_coord[BSQ_TLC_COL], map->bsq_coord[BSQ_TLC_ROW], map->bsq_coord[BSQ_TLC_SIZE]);
+        // char_map_reader(map);
+        // printf("\n");
         map->char_map = coordinates_to_bsq(map);
-        int_map_reader(map);
-        printf("\n");
+        // int_map_reader(map);
+        // printf("\n");
         char_map_reader(map);
     }
    
