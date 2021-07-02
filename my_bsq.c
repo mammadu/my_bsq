@@ -3,16 +3,23 @@
 int is_valid_row(int** map, int x, int y, int size)
 {
     int total_x = x + size; 
-        
-    while(x < total_x)
-    {
-        //printf("%d",map[y][x]);
-        if(map[y][x] == -1)
-            return - 1;
-        
-        x += 1;
-    }
+    int total_y = y + size;
+    int buffer_x = x;
     
+    while(y < total_y)
+    {    
+        while(x < total_x)
+        {
+            //printf("%d",map[y][x]);
+            if(map[y][x] == -1)
+                return - 1;
+            
+            x += 1;
+        }
+        //printf("\n");
+        x = buffer_x;
+        y += 1;
+    }    
     return 0;
 }
 
