@@ -68,7 +68,7 @@ void biggest_square(bitmap* map)
     int y = 0;
     int size = 1;
 
-    while (!(x + size >= map->col_count && y + size >= map->row_count))
+    while (!(x + size > map->col_count && y + size >= map->row_count))
     {
         //printf("x + size = %d\ny + size = %d\n",x + size, y + size);
         //printf("is_valid_square(map, %d, %d, %d) = %d\n", x, y, size, is_valid_square(map->map, x, y, size));
