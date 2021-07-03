@@ -111,7 +111,9 @@ int main(int argc, char* argv[])
 
         printf("biggest square coord: x = %d, y = %d, size = %d\n", map->bsq_coord[BSQ_TLC_COL], map->bsq_coord[BSQ_TLC_ROW], map->bsq_coord[BSQ_TLC_SIZE]);
         map->char_map = coordinates_to_bsq(map);
-         map_reader(map);
+        map_reader(map);
+        free_map(map);
+        close(fd);
     }
    
     return 0;

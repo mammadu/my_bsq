@@ -7,6 +7,8 @@
 #include "transform_map.h"
 #include "my_c_functions.h"
 #include "show_bsq.h"
+#include "free_map.h"
+
 
 void char_map_reader(bitmap* map);
 void int_map_reader(bitmap* map);
