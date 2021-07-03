@@ -80,9 +80,9 @@ int read_remainder(char** remainder, char** line)
     tmp = &remainder_pos[i];
     *tmp = '\0';
     *line = my_strdup(*remainder);
-    if (*remainder) {
-        free(*remainder);
-    }
+    // if (*remainder) {
+    //     free(*remainder);
+    // }
     *remainder = my_strdup(tmp + 1);
     return (1);
 }

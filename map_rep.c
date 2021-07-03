@@ -1,5 +1,4 @@
 #include "map_rep.h"
-
 bitmap* map_rep(int fd)
 {    
     bitmap* return_val = malloc(sizeof(bitmap));
@@ -8,10 +7,12 @@ bitmap* map_rep(int fd)
     char* str_rows = my_readline(fd);
     char* line;
     return_val->row_count = my_atoi_base(str_rows, DEC);
+    free(str_rows);
     return_val->char_map = malloc(sizeof(char*) * return_val->row_count);
     while(i < return_val->row_count)
     {
         line = my_readline(fd);
+        // printf("[debug]line = %s\n", line);
         return_val->char_map[i] = my_strdup(line);
         free(line);
         i += 1;
