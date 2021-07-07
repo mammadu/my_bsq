@@ -1,77 +1,158 @@
-#include "my_readline.h"
-#include <errno.h>
+/****************************************************/
+/* Name:  my_readline.c                                  */
+/* Created by: Anastasia Zimina                     */
+/*                                                  */
+/* Date:    3/20/2020                               */
+/* Updated: 5/24/2020                               */
+/*                                                  */
+/* QWASAR SILICON VALLEY 2020                       */
+/****************************************************/
 
-int is_newline_in_string(char* string)
+#include "my_readline.h"
+
+void my_memset(void *data, int c, size_t size)
 {
-    int i = 0;
-    while (string[i] != '\0')
-    {
-        if (string[i] == '\n')
-        {
-            return 1;
-        }
-        i++;
+    unsigned char *temp;
+    temp = data;
+
+    while (size > 0) {
+        *temp++ = (unsigned char)c;
+        size--;
     }
-    return 0;
 }
 
-//Copy contents of source_string into destination_string upto delimiter character.
-void split_string(char* destination_string, char** source_string, char delimiter)
+void my_memcpy(void *dst, const void *src, size_t dataSize)
 {
-    int i = 0;
-    while(source_string[0][i] != delimiter && i < my_strlen(source_string[0]))
-    {
-        destination_string[i] = source_string[0][i];
+    const unsigned char *tsrc = src;
+    unsigned char *tdst = dst;
+
+    size_t i = 0;
+    while (i < dataSize) {
+        tdst[i] = tsrc[i];
         i++;
-    } 
-    destination_string[i] = '\0';
-    source_string[0] = &source_string[0][i + 1];
+    }
+}
+
+// STR FUNCTIONS
+
+int my_strchr(char*str, char a, size_t size) 
+{
+    size_t i = 0;
+    while (i < size) {
+        if (str[i] == a)
+            return i;
+        i++;
+    }
+    return -1;
+}
+
+size_t my_strlen_size(const char *str) 
+{
+    size_t len = 0;
+    if (str != NULL)
+        while (*str++)
+            len++;
+    return len;
+}
+
+char *my_strnadd(char *dst, char *src, size_t len)
+{
+    size_t len_dst = my_strlen_size(dst);
+    size_t len_src = my_strlen_size(src);
+    char *result = NULL;
+    int i = 0;
+    size_t j = 0;
+
+    if (dst == NULL && src == NULL)
+        return NULL;
+    if ((result = malloc(sizeof(char) * (len_dst + len + 1)))) {
+        while (j < len_dst) {
+            result[i] =dst[j];
+            j++;
+            i++;
+        }
+        j = 0;
+        while (j < len && j < len_src) {
+            result[i] = src[j];
+            i++;
+            j++;
+        }
+        result[i] = '\0';
+        if (dst != NULL)
+            free(dst);
+        return result;
+    }
+    return NULL;
+}
+
+// MY_READLINE FUNCTIONS
+
+int countSize(t_list *lst) 
+{
+    t_list *current = lst;
+    size_t lineSize = 0;
+
+    while(current) {
+        lineSize += current->dataSize;
+        current = current->next;
+    }
+    return lineSize;
+}
+
+void create_left(char *temp, size_t size, int index, char *left)
+{
+    size_t i = 0;
+    while (index + i< size) {
+        left[i] = temp[index + i];
+        i++;
+    }
+}
+
+char *str_from_left(char *str, int index) 
+{
+    char *line = (char *)malloc(sizeof(char) * (index + 1));
+    int i = 0;
+    my_memset(line, '\0', index + 1);
+    my_memcpy(line, str, (size_t)index);
+    while (index + 1 + i < READLINE_READ_SIZE) {
+       str[i] = str[i + index + 1];
+       i++;
+    }
+    while (i < READLINE_READ_SIZE) {
+        str[i] = 0;
+        i++;
+    }
+    return (line);
 }
 
 char *my_readline(int fd) 
 {
-    static char* string_storage_block = "\0";    
-    
-    char* return_val;
-    
-    int characters_read;
-    
-    if (string_storage_block[0] != '\0' && is_newline_in_string(string_storage_block) == 1)
-    {        
-        return_val = malloc(my_strlen(string_storage_block) * sizeof(char));
-        split_string(return_val, &string_storage_block, '\n');
-        return return_val;
+    char *result = NULL;
+    static char left[READLINE_READ_SIZE] = "";
+    char temp[READLINE_READ_SIZE];
+    int charCount = 0;
+    int nl;
+
+    if (fd == -1)
+        return NULL;
+
+    if (my_strlen_size(left)) {
+        if ((nl = my_strchr(left, '\n', my_strlen_size(left))) != -1)
+            return (str_from_left(left, nl));
+        result = my_strnadd(result, left, my_strlen_size(left));
+        my_memset(&left, 0, READLINE_READ_SIZE);
     }
 
-    char* temp_string_storage_block = malloc(READLINE_READ_SIZE * sizeof(char));
-    characters_read = read(fd, temp_string_storage_block, READLINE_READ_SIZE);
-    
-    if (errno == EBADF)
-    {
-        free(temp_string_storage_block);
-        return NULL;
+    while ((charCount = read(fd, temp, READLINE_READ_SIZE)) > 0) {
+        if ((nl = my_strchr(temp, '\n',charCount)) != -1)
+        {
+            result = my_strnadd(result, temp, nl);
+            create_left(temp, charCount, nl + 1, left);
+            break;
+        }
+        else
+            result = my_strnadd(result, temp, (size_t)charCount);
+        my_memset(&temp, 0, READLINE_READ_SIZE);
     }
-    
-    if (characters_read == 0 && string_storage_block[0] == '\0')
-    {
-        free(temp_string_storage_block);
-        return NULL;
-    }
-    
-    char* temp_combined_string = combine_strings(string_storage_block, temp_string_storage_block);
-    string_storage_block = temp_combined_string;
-    free(temp_string_storage_block);
-    
-    while (is_newline_in_string(string_storage_block) == 0 && characters_read > 0)
-    {
-        temp_string_storage_block = malloc(READLINE_READ_SIZE * sizeof(char));    
-        characters_read = read(fd, temp_string_storage_block, READLINE_READ_SIZE);
-        string_storage_block = combine_strings(string_storage_block, temp_string_storage_block);
-        free(temp_string_storage_block);
-    }
-    
-    return_val = malloc(my_strlen(string_storage_block) * sizeof(char));
-    split_string(return_val, &string_storage_block, '\n');
-    
-    return return_val;
+    return result;
 }
