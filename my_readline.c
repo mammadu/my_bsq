@@ -1,8 +1,6 @@
 #include "my_readline.h"
 #include <errno.h>
 
-#define READLINE_READ_SIZE 16
-
 int is_newline_in_string(char* string)
 {
     int i = 0;
