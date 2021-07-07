@@ -337,34 +337,34 @@ int delimiter_count(char* source_string, char delimiter)
     return num_of_delim;
 }
 
-char** split_string(char* og_source_string, char delimiter)
-{
-    char* source_string = my_strdup(og_source_string);
-    char* source_string_start = source_string; //this variable stores the start location of source_string for freeing later
+// char** split_string(char* og_source_string, char delimiter)
+// {
+//     char* source_string = my_strdup(og_source_string);
+//     char* source_string_start = source_string; //this variable stores the start location of source_string for freeing later
 
-    int num_of_delim = delimiter_count(source_string, delimiter);
-    int string_count = num_of_delim + 1; //The total number of split strings is equal to num_of_delim + 1
+//     int num_of_delim = delimiter_count(source_string, delimiter);
+//     int string_count = num_of_delim + 1; //The total number of split strings is equal to num_of_delim + 1
 
-    char** return_array = malloc((string_count) * sizeof(char*));
+//     char** return_array = malloc((string_count) * sizeof(char*));
 
     
-    int k = 0; //index of string in retun_arrayf
-    while (my_strlen(source_string) > 0)
-    {
-        int j = 0; //index of character in source_string
-        while(source_string[j] != delimiter && j < my_strlen(source_string))
-        {
-            j++;
-        }
-        return_array[k] = malloc((j + 1) * sizeof(char));
-        split_string_word(return_array[k], &source_string, delimiter);
-        printf("\nsplit string = %s\n",return_array[k]);
-        k++;
-    }
+//     int k = 0; //index of string in retun_arrayf
+//     while (my_strlen(source_string) > 0)
+//     {
+//         int j = 0; //index of character in source_string
+//         while(source_string[j] != delimiter && j < my_strlen(source_string))
+//         {
+//             j++;
+//         }
+//         return_array[k] = malloc((j + 1) * sizeof(char));
+//         split_string_word(return_array[k], &source_string, delimiter);
+//         printf("\nsplit string = %s\n",return_array[k]);
+//         k++;
+//     }
     
-    free(source_string_start);
-    return return_array;
-}
+//     free(source_string_start);
+//     return return_array;
+// }
 
 void free_string_array(char** string_array, int string_count)
 {

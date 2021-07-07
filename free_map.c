@@ -23,7 +23,6 @@ void free_maps(bitmap* map)
     while(i <= map->row_count)
     {
         free(map->map[i]);
-        printf("[debug]char->map being freed = map->char_map[%s]\n", map->char_map[i]);
         free(map->char_map[i]);
         i += 1;
     }
