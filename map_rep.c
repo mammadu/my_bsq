@@ -15,7 +15,7 @@ bitmap* map_rep(int fd)
         
         if (line != NULL)
         {
-            printf("[debug]line is good, i = %d\n", i);
+            // printf("[debug]line is good, i = %d\n", i);
             return_val->char_map[i] = my_strdup(line);
             free(line);
             i += 1;

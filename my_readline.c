@@ -25,15 +25,15 @@ void split_string(char* destination_string, char** source_string, char delimiter
     {
         destination_string[i] = source_string[0][i];
         i++;
-    }    
+    } 
+    destination_string[i] = '\0';
     source_string[0] = &source_string[0][i + 1];
 }
 
 char *my_readline(int fd) 
 {
-    static char* string_storage_block = "\0";
+    static char* string_storage_block = "\0";    
     
-    char* temp_string_storage_block = malloc(READLINE_READ_SIZE * sizeof(char));
     char* return_val;
     
     int characters_read;
@@ -45,20 +45,24 @@ char *my_readline(int fd)
         return return_val;
     }
 
-    // temp_string_storage_block = malloc(READLINE_READ_SIZE * sizeof(char));
+    char* temp_string_storage_block = malloc(READLINE_READ_SIZE * sizeof(char));
     characters_read = read(fd, temp_string_storage_block, READLINE_READ_SIZE);
     
     if (errno == EBADF)
     {
+        free(temp_string_storage_block);
         return NULL;
     }
     
     if (characters_read == 0 && string_storage_block[0] == '\0')
     {
+        free(temp_string_storage_block);
         return NULL;
     }
     
-    string_storage_block = combine_strings(string_storage_block, temp_string_storage_block);
+    char* temp_combined_string = combine_strings(string_storage_block, temp_string_storage_block);
+    string_storage_block = temp_combined_string;
+    free(temp_string_storage_block);
     
     while (is_newline_in_string(string_storage_block) == 0 && characters_read > 0)
     {
@@ -73,7 +77,3 @@ char *my_readline(int fd)
     
     return return_val;
 }
-
-
-
-//
