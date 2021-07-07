@@ -11,7 +11,7 @@
 
 char *my_readline(int fd);
 
-void split_string(char* destination_string, char** source_string, char delimiter);
+void split_string(char* destination_string, char* source_string, char delimiter);
 
 int is_newline_in_string(char* string);
 
