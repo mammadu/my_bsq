@@ -10,13 +10,11 @@ int is_valid_row(int** map, int x, int y, int size)
     {    
         while(x < total_x)
         {
-            //printf("%d",map[y][x]);
             if(map[y][x] == -1)
                 return - 1;
             
             x += 1;
         }
-        //printf("\n");
         x = buffer_x;
         y += 1;
     }    
@@ -27,7 +25,6 @@ void map_reader(bitmap* map)
 {
     int i = 0; 
     int j = 0;
-    // printf("[debug]First character = %c\n",map->char_map[i][j]);
 
     while (i < map->row_count)
     {
@@ -44,19 +41,18 @@ void map_reader(bitmap* map)
 
 int is_valid_square(int** map, int tlc_col, int tlc_row, int size)
 {
-    size -= 1; //The starting point of size in foo biggest_sqare and this lines of code do not make sense 
+    size -= 1;
     int tlc = map[tlc_row][tlc_col];
     int trc = map[tlc_row][tlc_col + size];
     int blc = map[tlc_row + size][tlc_col];
     int brc = map[tlc_row + size][tlc_col + size];
 
-    if (tlc == -1 || trc == -1 || blc == -1 || brc == -1) //Would it be a easy as flagging here as well the total size of x and y as a boundary?
+    if (tlc == -1 || trc == -1 || blc == -1 || brc == -1)
     {
         return -1;
     }
     else
     {
-        //printf("brc %d - blc %d - trc  %d + tlc  %d = %d\n", brc, blc, trc, tlc,brc - blc - trc + tlc);
         return brc - blc - trc + tlc;
     }
 }
@@ -70,8 +66,6 @@ void biggest_square(bitmap* map)
 
     while (!(x + size > map->col_count && y + size >= map->row_count))
     {
-        //printf("x + size = %d\ny + size = %d\n",x + size, y + size);
-        //printf("is_valid_square(map, %d, %d, %d) = %d\n", x, y, size, is_valid_square(map->map, x, y, size));
         if (x + size > map->col_count)
         {
             y += 1;
@@ -87,33 +81,26 @@ void biggest_square(bitmap* map)
             y = 0;
         }
         else
-        {
             x += 1;
-        }
     }
 }
 
 
 int main(int argc, char* argv[])
 {   
-    if (argc < 2 && argc > 3)
+    if (argc < 2 || argc > 3)
         return -1;
     else
     {
-        
         int fd = open(argv[1], O_RDONLY); //open file to get fd
         
         bitmap* map = map_rep(fd);//read/extract txt file into 2d character array
         map->map = transform_map(map); //transform 2d character array into to bitmap
         biggest_square(map);//find biggest square from bitmap
-        //change 2d character array to show the largest square
-        //print out final bitmap
-
-        // printf("biggest square coord: x = %d, y = %d, size = %d\n", map->bsq_coord[BSQ_TLC_COL], map->bsq_coord[BSQ_TLC_ROW], map->bsq_coord[BSQ_TLC_SIZE]);
-        map->char_map = coordinates_to_bsq(map);
-        map_reader(map);
-        free_map(map);
-        close(fd);
+        map->char_map = coordinates_to_bsq(map);//change 2d character array to show the largest square
+        map_reader(map);//print out final bitmap
+        free_map(map);//free memory
+        close(fd);//close file descriptor
     }
    
     return 0;

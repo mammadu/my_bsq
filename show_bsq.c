@@ -19,6 +19,5 @@ char** coordinates_to_bsq(bitmap* map)
         size_x += 1;
         i += 1;
     }
-
     return map->char_map;
 }
